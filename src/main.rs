@@ -3,7 +3,7 @@ use std::process::exit;
 use swayipc::Node;
 use swayipc::Output;
 use swayipc::{Connection, Event, EventType, WorkspaceChange};
-use tokio::signal::ctrl_c;
+use tokio::signal;
 
 fn find_focused_window(node: &Node) -> Option<&Node> {
     if node.focused && node.node_type != swayipc::NodeType::Workspace {
@@ -98,7 +98,7 @@ async fn main() {
     };
 
     let signal_fut = async {
-        ctrl_c().await.unwrap();
+        signal::ctrl_c().await.expect("failed to listen for event");
         println!("Cleaning up and exiting...");
         exit(0);
     };
