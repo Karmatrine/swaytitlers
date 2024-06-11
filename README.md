@@ -20,3 +20,7 @@ Example of a simple widget:
   )
 )
 ```
+______________
+Do not spawn more than 1 time for the same display. Tokio ctrl_c doesn't like it and can cause issues when calling the system shutdown.
+
+For whatever reason if you still spawned it more than 1 time, you can use `killall swaytitlers` to kill the process (will kill all processes including the one used in the bar, so the bar will need to be reloaded).
